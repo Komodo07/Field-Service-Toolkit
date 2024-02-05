@@ -1,0 +1,25 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Field Service Toolkit", "Field Service Toolkit.csproj", "{EA274B95-E725-4EA9-9DF9-D6646C774884}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA274B95-E725-4EA9-9DF9-D6646C774884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA274B95-E725-4EA9-9DF9-D6646C774884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA274B95-E725-4EA9-9DF9-D6646C774884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA274B95-E725-4EA9-9DF9-D6646C774884}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8B8C25D-16F0-464E-9D84-BD70DB0D0146}
+	EndGlobalSection
+EndGlobal

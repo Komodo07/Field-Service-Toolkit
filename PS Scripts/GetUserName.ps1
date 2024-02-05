@@ -1,0 +1,1 @@
+Invoke-Command -computername $wks -scriptblock { powershell -command  "& {(get-wmiobject Win32_ComputerSystem).UserName.Split('\')[1]}"} -ErrorAction SilentlyContinue
