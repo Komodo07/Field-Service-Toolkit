@@ -18,98 +18,87 @@ namespace Field_Service_Toolkit
         /*This class is meant to represent a PC asset and will populate
          * it's field information from WMI calls and the hostName registry*/
 
-        private string name;
+        private string name, os, manufacturer, model, serial, cpuSpeed, biosVersion, domain, hddCapacity, hddUsedSpace, hddFreeSpace,
+            totalRam, freeRam, usedRam, rdp, lastReboot;
+        
         public string Name
         {
             get { return name; }
             private set { name = value; }
         }
 
-        private string os;
         public string OS
         {
             get { return os; }
             private set { os = value; }
         }
 
-        private string manufacturer;
         public string Manufacturer
         {
             get { return manufacturer; }
             private set { manufacturer = value; }
         }
 
-        private string model;
         public string Model
         {
             get { return model; }
             private set { model = value; }
         }
 
-        private string serial;
         public string Serial
         {
             get { return serial; }
             private set { serial = value; }
         }
 
-        private string cpuSpeed;
         public string CpuSpeed
         {
             get { return cpuSpeed; }
             private set { cpuSpeed = value; }
         }
 
-        private string biosVersion;
         public string BiosVersion
         {
             get { return biosVersion; }
             private set { biosVersion = value; }
         }
 
-        private string domain;
         public string Domain
         {
             get { return domain; }
             private set { domain = value; }
         }
 
-        private string hddCapacity;
         public string HddCapacity
         {
             get { return hddCapacity; }
             private set { hddCapacity = value; }
         }
 
-        private string hddUsedSpace;
         public string HddUsedSpace
         {
             get { return hddUsedSpace; }
             private set { hddUsedSpace = value; }
         }
 
-        private string hddFreeSpace;
         public string HddFreeSpace
         {
             get { return hddFreeSpace; }
             private set { hddFreeSpace = value; }
         }
 
-        private string totalRam;
         public string TotalRam
         {
             get { return totalRam; }
             private set { totalRam = value; }
         }
 
-        private string freeRam;
         public string FreeRam
         {
             get { return freeRam; }
             private set { freeRam = value; }
         }
 
-        private string usedRam;
         public string UsedRam
         {
             get { return usedRam; }
@@ -123,14 +112,12 @@ namespace Field_Service_Toolkit
             private set { currentUser = value; }
         }
 
-        private string rdp;
         public string Rdp
         {
             get { return rdp; }
             private set { rdp = value; }
         }
 
-        private string lastReboot;
         public string LastReboot
         {
             get { return lastReboot; }
