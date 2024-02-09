@@ -4,12 +4,16 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Management.Automation;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Management.Infrastructure;
 using Microsoft.Win32;
 using System.Management;
 using System.Text.RegularExpressions;
+using System.Net.Http;
+using System.IO;
 
 namespace Field_Service_Toolkit
 {
@@ -18,7 +22,7 @@ namespace Field_Service_Toolkit
         /*This class is meant to represent a PC asset and will populate
          * it's field information from WMI calls and the hostName registry*/
 
-        private string name, os, manufacturer, model, serial, cpuSpeed, biosVersion, domain, hddCapacity, hddUsedSpace, hddFreeSpace,
+       private string name, os, manufacturer, model, serial, cpuSpeed, biosVersion, domain, hddCapacity, hddUsedSpace, hddFreeSpace,
             totalRam, freeRam, usedRam, rdp, lastReboot;
         
         public string Name
@@ -137,7 +141,23 @@ namespace Field_Service_Toolkit
             {
                 throw new Exception("Unable to get BIOS version.");
             }
-        }        
+        }
+        
+        private void SnowAPIClient()
+        {
+            using HttpClient client = new();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //client.DefaultRequestHeaders.Add()
+        }
+
+        static async Task<List<Repository>> ProcessRepositoryAsync(HttpClient client, string hostName)
+        {
+            await using Stream stream = await client.GetStreamAsync($"https://bswhelp.service-now.com/api/now/cmdb/instance/cmdb_ci_computer/{hostName}");
+            List<Repository>? repositories = await JsonSerializer.DeserializeAsync<List<Repository>>(stream);
+
+            return repositories ?? new();
+        }
 
         public void GetPCInformation(string hostName)
         {
