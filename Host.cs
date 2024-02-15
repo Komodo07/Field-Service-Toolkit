@@ -14,6 +14,7 @@ using System.Management;
 using System.Text.RegularExpressions;
 using System.Net.Http;
 using System.IO;
+using System.Buffers.Text;
 
 namespace Field_Service_Toolkit
 {
@@ -143,17 +144,28 @@ namespace Field_Service_Toolkit
             }
         }
         
-        private void SnowAPIClient()
+        private async void SnowAPIClient()
         {
+            string auth = "jtucker:S3r3n3ty!";
+            var bytes = Encoding.UTF8.GetBytes(auth);
+            var base64 = Convert.ToBase64String(bytes);
+
             using HttpClient client = new();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //client.DefaultRequestHeaders.Add()
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64);
+
+            List<Repository> repositories = await ProcessRepositoryAsync(client, hostName);
+
+            foreach (Repository repository in repositories)
+            {
+                OS = repository.Location;
+            }
         }
 
         static async Task<List<Repository>> ProcessRepositoryAsync(HttpClient client, string hostName)
         {
-            await using Stream stream = await client.GetStreamAsync($"https://bswhelp.service-now.com/api/now/cmdb/instance/cmdb_ci_computer/{hostName}");
+            await using Stream stream = await client.GetStreamAsync($"https://bswhelp.service-now.com/api/now/cmdb/instance/cmdb_ci_computer/7c42feac1bd37d50cd1321fa234bcbd9");
             List<Repository>? repositories = await JsonSerializer.DeserializeAsync<List<Repository>>(stream);
 
             return repositories ?? new();
@@ -187,6 +199,7 @@ namespace Field_Service_Toolkit
             }
 
             GetBiosFromRegistry(hostName);
+            SnowAPIClient();
         }
     }
 }
