@@ -146,14 +146,14 @@ namespace Field_Service_Toolkit
         
         private async void SnowAPIClient()
         {
-            string auth = "jtucker:S3r3n3ty!";
-            var bytes = Encoding.UTF8.GetBytes(auth);
-            var base64 = Convert.ToBase64String(bytes);
+            string credentials = "jtucker:S3r3n3ty!";
+            var bytes = Encoding.UTF8.GetBytes(credentials);
+            var base64Credentials = Convert.ToBase64String(bytes);
 
             using HttpClient client = new();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
 
             List<Repository> repositories = await ProcessRepositoryAsync(client, hostName);
 
