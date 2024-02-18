@@ -7,7 +7,14 @@ using System.Threading.Tasks;
 
 namespace Field_Service_Toolkit
 {
-    public record class Repository(
-        [property: JsonPropertyName("location")] string Location);
-        
+    public class Repository
+    {
+        public record Attributes(
+        string U_room
+    );
+
+        public record Location(
+            string Display_value
+        );
+    }        
 }
