@@ -48,20 +48,24 @@ namespace Field_Service_Toolkit
                 }
                 catch (PingException p)
                 {
-                    lblResults.Text = p.Message;
+                    pcInformation.Text = p.Message;
                 }
             }
 
             if (isPingable)
             {
                 //lblResults.Text = ($"Ping to {hostName.ToString()} Successful"); //+ {r.Address.ToString()} Successful Response delay = {r.RoundtripTime.ToString()}");
-                StartRemoteRegistry(HostName);
+                StartRemoteRegistry(HostName);                
                 Host host = new Host(HostName);                
                 host.GetPCInformation(HostName);
+                SnowAPI snowAPI = new SnowAPI();
+                snowAPI.SnowAPIClient();
 
-                lblResults.Text = $"Computer Name: {host.Name}\nOperating System: {host.OS}\nManufacturer: {host.Manufacturer}\nModel: {host.Model}\nSerial Number: {host.Serial}" +
+                pcInformation.Text = $"Computer Name: {host.Name}\nOperating System: {host.OS}\nManufacturer: {host.Manufacturer}\nModel: {host.Model}\nSerial Number: {host.Serial}" +
                     $"\nCPU SPeed: {host.CpuSpeed}\nBios Version: {host.BiosVersion}\nDomain: {host.Domain}\nHDD Capacity: {host.HddCapacity}GB\nHDD Space: {host.HddUsedSpace}% | Free: {host.HddFreeSpace}" +
                     $"\nRAM: {host.TotalRam}GB | Free Memory: {host.FreeRam} | Total Memory Used: {host.UsedRam}\nUser Logged In: {host.CurrentUser}\nRDP: {host.Rdp}\nLast Reboot: {host.LastReboot}";
+
+                snowInformation.Text = $"Department: {snowAPI.Department}\nLocation: {snowAPI.Location}\nRoom: {snowAPI.Room}\nRoom Type: {snowAPI.RoomType}\nAssigned To: {snowAPI.AssignedTo}";
                 
                 txtUserName.Text = host.CurrentUser;
             }
@@ -107,7 +111,8 @@ namespace Field_Service_Toolkit
         {
             txtAssetTag.Text = "";
             txtUserName.Text = "";
-            lblResults.Text = "";            
+            pcInformation.Text = "";
+            snowInformation.Text = "";
         }
     }
 }

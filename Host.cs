@@ -142,34 +142,7 @@ namespace Field_Service_Toolkit
             {
                 throw new Exception("Unable to get BIOS version.");
             }
-        }
-        
-        private async void SnowAPIClient()
-        {
-            string credentials = "jtucker:S3r3n3ty!";
-            var bytes = Encoding.UTF8.GetBytes(credentials);
-            var base64Credentials = Convert.ToBase64String(bytes);
-
-            using HttpClient client = new();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
-
-            List<Repository> repositories = await ProcessRepositoryAsync(client, hostName);
-
-            foreach (Repository repository in repositories)
-            {
-                OS = repository.Location;
-            }
-        }
-
-        static async Task<List<Repository>> ProcessRepositoryAsync(HttpClient client, string hostName)
-        {
-            await using Stream stream = await client.GetStreamAsync($"https://bswhelp.service-now.com/api/now/cmdb/instance/cmdb_ci_computer/7c42feac1bd37d50cd1321fa234bcbd9");
-            List<Repository>? repositories = await JsonSerializer.DeserializeAsync<List<Repository>>(stream);
-
-            return repositories ?? new();
-        }
+        }        
 
         public void GetPCInformation(string hostName)
         {
@@ -199,7 +172,6 @@ namespace Field_Service_Toolkit
             }
 
             GetBiosFromRegistry(hostName);
-            SnowAPIClient();
         }
     }
 }
