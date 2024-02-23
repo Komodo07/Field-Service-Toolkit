@@ -43,7 +43,7 @@ namespace Field_Service_Toolkit
 
         public async void SnowAPIClient()
         {
-            string credentials = "jtucker:S3r3n3ty!";
+            string credentials = "jtucker:S3r3n4ty!";
             var bytes = Encoding.UTF8.GetBytes(credentials);
             var base64Credentials = Convert.ToBase64String(bytes);
 
@@ -52,8 +52,8 @@ namespace Field_Service_Toolkit
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
 
-            //Root assetAttributes = await ProcessRepositoryAsync(client, hostName);
-            JSONTemplate assetAttributes = DeserializeJSON();
+            JSONTemplate assetAttributes = await DeserializeJSON(client);
+            //JSONTemplate assetAttributes = DeserializeJSON();
 
             Department = assetAttributes.result.attributes.department.display_value;
             Location = assetAttributes.result.attributes.location.display_value;
@@ -70,10 +70,10 @@ namespace Field_Service_Toolkit
             return JsonSerializer.Deserialize<JSONTemplate>(jsonText);
         }
 
-        static async Task<Attributes> ProcessRepositoryAsync(HttpClient client, string hostName)
+        static async Task<JSONTemplate> DeserializeJSON(HttpClient client)
         {
             await using Stream stream = await client.GetStreamAsync(@"https://bswhelp.service-now.com/api/now/cmdb/instance/cmdb_ci_computer/7c42feac1bd37d50cd1321fa234bcbd9");
-            Attributes? repositories = await JsonSerializer.DeserializeAsync<Attributes>(stream);
+            JSONTemplate? repositories = await JsonSerializer.DeserializeAsync<JSONTemplate>(stream);
             return repositories ?? new();
         }
     }

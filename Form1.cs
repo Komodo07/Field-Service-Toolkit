@@ -58,7 +58,7 @@ namespace Field_Service_Toolkit
             if (isPingable)
             {                
                 StartRemoteRegistry(HostName);                
-                Host host = new Host(HostName);                
+                Host host = new Host();                
                 host.GetPCInformation(HostName);
                 SnowAPI snowAPI = new SnowAPI();
                 snowAPI.SnowAPIClient();

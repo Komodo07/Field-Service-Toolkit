@@ -1,24 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Management.Automation;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.Management.Infrastructure;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using System;
 using System.Management;
-using System.Text.RegularExpressions;
-using System.Net.Http;
-using System.IO;
-using System.Buffers.Text;
 
 namespace Field_Service_Toolkit
 {
-    public class Host(string hostName)
+    public class Host
     {
         /*This class is meant to represent a PC asset and will populate
          * it's field information from WMI calls and the hostName registry*/
@@ -179,7 +165,7 @@ namespace Field_Service_Toolkit
                 TotalRam = memory.ToString();
             }
 
-            GetBiosFromRegistry(hostName);
+            GetBiosFromRegistry(hostName);            
         }
     }
 }
