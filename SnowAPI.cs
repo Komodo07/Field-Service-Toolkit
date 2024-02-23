@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace Field_Service_Toolkit
 {
-    public class SnowAPI
+    internal class SnowAPI
     {
         private string department, location, room, roomType, assignedTo;
 

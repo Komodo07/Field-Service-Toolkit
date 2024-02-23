@@ -27,8 +27,11 @@ namespace Field_Service_Toolkit
         }
 
         private string? hostName;
-
-        public string HostName { get => hostName; set => hostName = value; }
+        public string HostName
+        {
+            get { return hostName; }
+            set { hostName = value; }
+        }
 
         private void btnPing_Click(object sender, EventArgs e)
         {
@@ -53,8 +56,7 @@ namespace Field_Service_Toolkit
             }
 
             if (isPingable)
-            {
-                //lblResults.Text = ($"Ping to {hostName.ToString()} Successful"); //+ {r.Address.ToString()} Successful Response delay = {r.RoundtripTime.ToString()}");
+            {                
                 StartRemoteRegistry(HostName);                
                 Host host = new Host(HostName);                
                 host.GetPCInformation(HostName);

@@ -131,6 +131,8 @@ namespace Field_Service_Toolkit
         
         private void GetBiosFromRegistry(string hostName)
         {
+            //Uses the registry path to the BIOS Version key and returns it as a string
+
             string biosPath = @"HARDWARE\DESCRIPTION\System\BIOS";
 
             try
@@ -149,17 +151,23 @@ namespace Field_Service_Toolkit
             // Creates and runs a query to Win32_ComputerSystem on a remote PC
             // and returns and assigns the relevant PC information to class variables.
 
-
             ManagementScope scope = new ManagementScope($"\\\\{hostName}\\root\\cimv2");
             scope.Connect();
             SelectQuery query = new SelectQuery("SELECT * FROM Win32_ComputerSystem");
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
 
             foreach (ManagementObject mo in searcher.Get())
-            {
-                CurrentUser = mo["UserName"].ToString();
-                int position = CurrentUser.IndexOf("\\");
-                CurrentUser = CurrentUser.Substring(position + 1);
+            {                
+                if (mo["UserName"] == null)
+                {
+                    CurrentUser = "";
+                }
+                else
+                {
+                    CurrentUser = mo["UserName"].ToString();
+                    int position = CurrentUser.IndexOf("\\");
+                    CurrentUser = CurrentUser.Substring(position + 1);
+                }                
 
                 Name = mo["Name"].ToString();
                 Domain = mo["Domain"].ToString();
