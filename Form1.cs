@@ -33,7 +33,7 @@ namespace Field_Service_Toolkit
             set { hostName = value; }
         }
 
-        private void btnPing_Click(object sender, EventArgs e)
+        private async void btnPing_Click(object sender, EventArgs e)
         {
             txtAssetTag.Text = txtAssetTag.Text.ToUpper().Trim();
             HostName = txtAssetTag.Text;
@@ -60,8 +60,11 @@ namespace Field_Service_Toolkit
                 StartRemoteRegistry(HostName);                
                 Host host = new Host();                
                 host.GetPCInformation(HostName);
+
+
                 SnowAPI snowAPI = new SnowAPI();
-                snowAPI.SnowAPIClient();
+                Task task = snowAPI.SnowAPIClient();
+                await task;
 
                 pcInformation.Text = $"Computer Name: {host.Name}\nOperating System: {host.OS}\nManufacturer: {host.Manufacturer}\nModel: {host.Model}\nSerial Number: {host.Serial}" +
                     $"\nCPU SPeed: {host.CpuSpeed}\nBios Version: {host.BiosVersion}\nDomain: {host.Domain}\nHDD Capacity: {host.HddCapacity}GB\nHDD Space: {host.HddUsedSpace}% | Free: {host.HddFreeSpace}" +
@@ -101,6 +104,9 @@ namespace Field_Service_Toolkit
 
         private static void StartRemoteRegistry(string hostName)
         {
+            //Determines if the Remote Registry Service is stopped on the host PC
+            // and (if so) starts it.
+
             ServiceController sc = new ServiceController("RemoteRegistry", hostName);
 
             if (sc.Status.Equals(ServiceControllerStatus.Stopped))

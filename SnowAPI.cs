@@ -39,9 +39,8 @@ namespace Field_Service_Toolkit
         {
             get { return assignedTo; }
             private set { assignedTo = value; }
-        }
-
-        public async void SnowAPIClient()
+        }        
+        public async Task SnowAPIClient()
         {
             string credentials = "jtucker:S3r3n4ty!";
             var bytes = Encoding.UTF8.GetBytes(credentials);
@@ -53,27 +52,17 @@ namespace Field_Service_Toolkit
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
 
             JSONTemplate assetAttributes = await DeserializeJSON(client);
-            //JSONTemplate assetAttributes = DeserializeJSON();
 
             Department = assetAttributes.result.attributes.department.display_value;
             Location = assetAttributes.result.attributes.location.display_value;
             Room = assetAttributes.result.attributes.u_room;
             RoomType = assetAttributes.result.attributes.u_room_type;
-            AssignedTo = assetAttributes.result.attributes.assigned_to.display_value;
+            AssignedTo = assetAttributes.result.attributes.assigned_to.display_value;            
         }
-
-        JSONTemplate DeserializeJSON()
-        {
-            string fileName = @"E:\Field Service Toolkit\asset.json";
-            string jsonText = File.ReadAllText(fileName);
-
-            return JsonSerializer.Deserialize<JSONTemplate>(jsonText);
-        }
-
         static async Task<JSONTemplate> DeserializeJSON(HttpClient client)
         {
             await using Stream stream = await client.GetStreamAsync(@"https://bswhelp.service-now.com/api/now/cmdb/instance/cmdb_ci_computer/7c42feac1bd37d50cd1321fa234bcbd9");
-            JSONTemplate? repositories = await JsonSerializer.DeserializeAsync<JSONTemplate>(stream);
+            JSONTemplate repositories = await JsonSerializer.DeserializeAsync<JSONTemplate>(stream);
             return repositories ?? new();
         }
     }
