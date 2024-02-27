@@ -63,7 +63,7 @@ namespace Field_Service_Toolkit
 
 
                 SnowAPI snowAPI = new SnowAPI();
-                Task task = snowAPI.SnowAPIClient();
+                Task task = snowAPI.SnowAPIClient(HostName);
                 await task;
 
                 pcInformation.Text = $"Computer Name: {host.Name}\nOperating System: {host.OS}\nManufacturer: {host.Manufacturer}\nModel: {host.Model}\nSerial Number: {host.Serial}" +

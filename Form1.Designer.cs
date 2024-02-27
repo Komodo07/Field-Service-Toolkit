@@ -88,7 +88,7 @@
             pcInformation.Location = new System.Drawing.Point(274, 53);
             pcInformation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             pcInformation.Name = "pcInformation";
-            pcInformation.Size = new System.Drawing.Size(282, 275);
+            pcInformation.Size = new System.Drawing.Size(350, 215);
             pcInformation.TabIndex = 3;
             // 
             // menuStrip1
@@ -175,10 +175,10 @@
             // 
             snowInformation.BackColor = System.Drawing.Color.Black;
             snowInformation.ForeColor = System.Drawing.Color.Lime;
-            snowInformation.Location = new System.Drawing.Point(274, 372);
+            snowInformation.Location = new System.Drawing.Point(274, 302);
             snowInformation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             snowInformation.Name = "snowInformation";
-            snowInformation.Size = new System.Drawing.Size(282, 275);
+            snowInformation.Size = new System.Drawing.Size(350, 230);
             snowInformation.TabIndex = 9;
             // 
             // label4
@@ -187,7 +187,7 @@
             label4.BackColor = System.Drawing.Color.Transparent;
             label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             label4.ForeColor = System.Drawing.Color.FromArgb(255, 255, 128);
-            label4.Location = new System.Drawing.Point(274, 353);
+            label4.Location = new System.Drawing.Point(274, 283);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(139, 19);
             label4.TabIndex = 10;

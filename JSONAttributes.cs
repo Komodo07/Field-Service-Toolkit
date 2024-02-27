@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Field_Service_Toolkit
 {
-    public class JSONTemplate
+    public class JSONAttributes
     {
         public Result result { get; set; }
     }

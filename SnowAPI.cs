@@ -40,30 +40,49 @@ namespace Field_Service_Toolkit
             get { return assignedTo; }
             private set { assignedTo = value; }
         }        
-        public async Task SnowAPIClient()
+        public async Task SnowAPIClient(string hostName)
         {
+            /*This method creates a HttpClient with headers and credentials that will be passed to
+                the DeserializeAttributes method in order to get the SNOW record information for an asset.
+                It will then pass the returned information to another method to assign values to variables.*/
+
             string credentials = "jtucker:S3r3n4ty!";
             var bytes = Encoding.UTF8.GetBytes(credentials);
-            var base64Credentials = Convert.ToBase64String(bytes);
+            var base64Credentials = Convert.ToBase64String(bytes);            
 
             using HttpClient client = new();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
 
-            JSONTemplate assetAttributes = await DeserializeJSON(client);
+            JSONAttributes attributes = await DeserializeAttributes(client, hostName);
 
-            Department = assetAttributes.result.attributes.department.display_value;
-            Location = assetAttributes.result.attributes.location.display_value;
-            Room = assetAttributes.result.attributes.u_room;
-            RoomType = assetAttributes.result.attributes.u_room_type;
-            AssignedTo = assetAttributes.result.attributes.assigned_to.display_value;            
-        }
-        static async Task<JSONTemplate> DeserializeJSON(HttpClient client)
+            AssignValuestoVariables(attributes);
+        }        
+        private async Task<JSONAttributes> DeserializeAttributes(HttpClient client, string hostName)
         {
-            await using Stream stream = await client.GetStreamAsync(@"https://bswhelp.service-now.com/api/now/cmdb/instance/cmdb_ci_computer/7c42feac1bd37d50cd1321fa234bcbd9");
-            JSONTemplate repositories = await JsonSerializer.DeserializeAsync<JSONTemplate>(stream);
-            return repositories ?? new();
+            //Uses the established client to first run an API call to SNOW using the asset tag in order to get the system id
+            //it then uses the system id to run another call to get the SNOW attributes for the asset and return them.
+
+            const string snowApiLink = @"https://bswhelp.service-now.com/api/now/cmdb/instance/cmdb_ci_computer";
+
+            await using Stream assetSidStream = await client.GetStreamAsync(@$"{snowApiLink}?sysparm_query=asset_tag={hostName}");
+            JSONAssetSid assetSid = await JsonSerializer.DeserializeAsync<JSONAssetSid>(assetSidStream);
+
+
+            await using Stream attributeStream = await client.GetStreamAsync(@$"{snowApiLink}/{assetSid.result[0].sys_id}");
+            JSONAttributes attributes = await JsonSerializer.DeserializeAsync<JSONAttributes>(attributeStream);
+
+            return attributes ?? new();
+        }
+
+        private void AssignValuestoVariables(JSONAttributes attributes)
+        {
+            Department = attributes.result.attributes.department.display_value;
+            Location = attributes.result.attributes.location.display_value;
+            Room = attributes.result.attributes.u_room;
+            RoomType = attributes.result.attributes.u_room_type;
+            AssignedTo = attributes.result.attributes.assigned_to.display_value;
         }
     }
 }
