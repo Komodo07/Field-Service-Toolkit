@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Xml.Linq;
+using System.Net;
+using System.Security.Principal;
 
 namespace Field_Service_Toolkit
 {
@@ -46,8 +48,9 @@ namespace Field_Service_Toolkit
                 the DeserializeAttributes method in order to get the SNOW record information for an asset.
                 It will then pass the returned information to another method to assign values to variables.*/
 
-            string credentials = "jtucker:S3r3n4ty!";
-            var bytes = Encoding.UTF8.GetBytes(credentials);
+            Logon logon = new Logon();            
+
+            var bytes = Encoding.UTF8.GetBytes($"{logon.UserName}:{logon.Password}");
             var base64Credentials = Convert.ToBase64String(bytes);            
 
             using HttpClient client = new();
@@ -59,7 +62,7 @@ namespace Field_Service_Toolkit
 
             AssignValuestoVariables(attributes);
         }        
-        private async Task<JSONAttributes> DeserializeAttributes(HttpClient client, string hostName)
+        static async Task<JSONAttributes> DeserializeAttributes(HttpClient client, string hostName)
         {
             //Uses the established client to first run an API call to SNOW using the asset tag in order to get the system id
             //it then uses the system id to run another call to get the SNOW attributes for the asset and return them.

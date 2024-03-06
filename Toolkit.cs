@@ -19,9 +19,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Field_Service_Toolkit
 {
-    public partial class Form1 : Form
+    public partial class Toolkit : Form
     {
-        public Form1()
+        public Toolkit()
         {
             InitializeComponent();
         }

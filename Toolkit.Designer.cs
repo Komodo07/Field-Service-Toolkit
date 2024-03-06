@@ -1,6 +1,6 @@
 ﻿namespace Field_Service_Toolkit
 {
-    partial class Form1
+    partial class Toolkit
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Toolkit));
             lblAssetTag = new System.Windows.Forms.Label();
             txtAssetTag = new System.Windows.Forms.TextBox();
             btnPing = new System.Windows.Forms.Button();

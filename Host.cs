@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Linq;
 using System.Management;
 
 namespace Field_Service_Toolkit
@@ -142,7 +143,7 @@ namespace Field_Service_Toolkit
             SelectQuery query = new SelectQuery("SELECT * FROM Win32_ComputerSystem");
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
 
-            foreach (ManagementObject mo in searcher.Get())
+            foreach (ManagementObject mo in searcher.Get().Cast<ManagementObject>())
             {                
                 if (mo["UserName"] == null)
                 {
@@ -152,7 +153,7 @@ namespace Field_Service_Toolkit
                 {
                     CurrentUser = mo["UserName"].ToString();
                     int position = CurrentUser.IndexOf("\\");
-                    CurrentUser = CurrentUser.Substring(position + 1);
+                    CurrentUser = CurrentUser.Substring(position + 1).ToUpper();
                 }                
 
                 Name = mo["Name"].ToString();
