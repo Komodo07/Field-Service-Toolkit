@@ -23,7 +23,12 @@ namespace Field_Service_Toolkit
     {
         public Toolkit()
         {
-            InitializeComponent();
+            InitializeComponent();            
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
 
         private string? hostName;
