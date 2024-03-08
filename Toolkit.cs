@@ -13,6 +13,7 @@ using System.Linq.Expressions;
 using System.Net.NetworkInformation;
 using System.ServiceProcess;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -67,6 +68,10 @@ namespace Field_Service_Toolkit
 
             if (isPingable)
             {
+                //Determines if the hostName is able to be pinged. If so it will attempt to start the Remote Registry Service
+                //If the Remote Registry Services is successfully started it will call the GetPCInformation method and then
+                //attepts to call the SnowAPIClient method.
+
                 try
                 {
                     StartRemoteRegistry(HostName);
@@ -81,15 +86,26 @@ namespace Field_Service_Toolkit
                 host.GetPCInformation(HostName);
 
                 SnowAPI snowAPI = new SnowAPI();
-                Task task = snowAPI.SnowAPIClient(HostName);
-                await task;
+
+                try
+                {
+                    Task task = snowAPI.SnowAPIClient(HostName);
+                    await task;
+
+                    
+                }
+                catch (JsonException jsonException)
+                {
+                    snowInformation.Text = jsonException.Message;
+                    return;
+                }                
 
                 pcInformation.Text = $"Computer Name: {host.Name}\nOperating System: {host.OS}\nManufacturer: {host.Manufacturer}\nModel: {host.Model}\nSerial Number: {host.Serial}" +
                     $"\nCPU SPeed: {host.CpuSpeed}\nBios Version: {host.BiosVersion}\nDomain: {host.Domain}\nHDD Capacity: {host.HddCapacity}GB\nHDD Space: {host.HddUsedSpace}% | Free: {host.HddFreeSpace}" +
                     $"\nRAM: {host.TotalRam}GB | Free Memory: {host.FreeRam} | Total Memory Used: {host.UsedRam}\nUser Logged In: {host.CurrentUser}\nRDP: {host.Rdp}\nLast Reboot: {host.LastReboot}";
 
                 snowInformation.Text = $"Department: {snowAPI.Department}\nLocation: {snowAPI.Location}\nRoom: {snowAPI.Room}\nRoom Type: {snowAPI.RoomType}\nAssigned To: {snowAPI.AssignedTo}";
-                
+
                 txtUserName.Text = host.CurrentUser;
             }
 

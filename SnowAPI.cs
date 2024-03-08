@@ -58,9 +58,15 @@ namespace Field_Service_Toolkit
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
 
-            JSONAttributes attributes = await DeserializeAttributes(client, hostName);
-
-            AssignValuestoVariables(attributes);
+            try
+            {
+                JSONAttributes attributes = await DeserializeAttributes(client, hostName);
+                AssignValuestoVariables(attributes);
+            }
+            catch (JsonException jsonException)
+            {
+                throw jsonException;
+            }            
         }        
         static async Task<JSONAttributes> DeserializeAttributes(HttpClient client, string hostName)
         {
@@ -74,9 +80,15 @@ namespace Field_Service_Toolkit
 
 
             await using Stream attributeStream = await client.GetStreamAsync(@$"{snowApiLink}/{assetSid.result[0].sys_id}");
-            JSONAttributes attributes = await JsonSerializer.DeserializeAsync<JSONAttributes>(attributeStream);
-
-            return attributes ?? new();
+            try
+            {
+                JSONAttributes attributes = await JsonSerializer.DeserializeAsync<JSONAttributes>(attributeStream);
+                return attributes ?? new();
+            }
+            catch
+            {
+                throw new JsonException("Unable to get SNOW record. Please check che Operational Status dropdown in SNOW.");                
+            }            
         }
 
         private void AssignValuestoVariables(JSONAttributes attributes)
