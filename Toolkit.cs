@@ -28,6 +28,11 @@ namespace Field_Service_Toolkit
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            if (e.CloseReason == CloseReason.WindowsShutDown || e.CloseReason == CloseReason.ApplicationExitCall
+                || e.CloseReason == CloseReason.TaskManagerClosing)
+            {
+                return;
+            }
             Application.Exit();
         }
 
@@ -54,18 +59,26 @@ namespace Field_Service_Toolkit
                 {
                     isPingable = PingHost();
                 }
-                catch (PingException p)
+                catch (PingException pingException)
                 {
-                    pcInformation.Text = p.Message;
+                    pcInformation.Text = pingException.Message;
                 }
             }
 
             if (isPingable)
-            {                
-                StartRemoteRegistry(HostName);                
+            {
+                try
+                {
+                    StartRemoteRegistry(HostName);
+                }
+                catch (Exception RemoteRegistryException)
+                {
+                    pcInformation.Text = RemoteRegistryException.Message;
+                    return;
+                }
+                                
                 Host host = new Host();                
                 host.GetPCInformation(HostName);
-
 
                 SnowAPI snowAPI = new SnowAPI();
                 Task task = snowAPI.SnowAPIClient(HostName);
@@ -116,7 +129,14 @@ namespace Field_Service_Toolkit
 
             if (sc.Status.Equals(ServiceControllerStatus.Stopped))
             {
-                sc.Start();
+                try
+                {
+                    sc.Start();
+                }
+                catch
+                {
+                    throw new Exception("Unable to start Remote Registry.");
+                }                
             }
         }
 
