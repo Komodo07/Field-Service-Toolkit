@@ -90,9 +90,7 @@ namespace Field_Service_Toolkit
                 try
                 {
                     Task task = snowAPI.SnowAPIClient(HostName);
-                    await task;
-
-                    
+                    await task;                    
                 }
                 catch (JsonException jsonException)
                 {
@@ -104,7 +102,7 @@ namespace Field_Service_Toolkit
                     $"\nCPU SPeed: {host.CpuSpeed}\nBios Version: {host.BiosVersion}\nDomain: {host.Domain}\nHDD Capacity: {host.HddCapacity}GB\nHDD Space: {host.HddUsedSpace}% | Free: {host.HddFreeSpace}" +
                     $"\nRAM: {host.TotalRam}GB | Free Memory: {host.FreeRam} | Total Memory Used: {host.UsedRam}\nUser Logged In: {host.CurrentUser}\nRDP: {host.Rdp}\nLast Reboot: {host.LastReboot}";
 
-                snowInformation.Text = $"Department: {snowAPI.Department}\nLocation: {snowAPI.Location}\nRoom: {snowAPI.Room}\nRoom Type: {snowAPI.RoomType}\nAssigned To: {snowAPI.AssignedTo}";
+                snowInformation.Text = $"Alias: {snowAPI.Alias}\nDepartment: {snowAPI.Department}\nLocation: {snowAPI.Location}\nRoom: {snowAPI.Room}\nRoom Type: {snowAPI.RoomType}\nAssigned To: {snowAPI.AssignedTo}";
 
                 txtUserName.Text = host.CurrentUser;
             }

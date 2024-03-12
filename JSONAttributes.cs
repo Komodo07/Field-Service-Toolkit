@@ -41,8 +41,7 @@ namespace Field_Service_Toolkit
         public AssignedTo? assigned_to { get; set; }        
         public string? u_room { get; set; }        
         public Department? department { get; set; }        
-        public string? u_floor { get; set; }        
-        public string? u_bca { get; set; }        
+        public string? u_aliases { get; set; }        
         public string? u_room_type { get; set; }        
         public Location? location { get; set; }        
     }

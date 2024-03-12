@@ -63,7 +63,7 @@
             txtPassword.Location = new System.Drawing.Point(111, 92);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new System.Drawing.Size(200, 32);
-            txtPassword.TabIndex = 2;
+            txtPassword.TabIndex = 0;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // btnConfirm
@@ -83,16 +83,18 @@
             button2.Location = new System.Drawing.Point(413, 94);
             button2.Name = "button2";
             button2.Size = new System.Drawing.Size(90, 30);
-            button2.TabIndex = 4;
+            button2.TabIndex = 2;
             button2.Text = "Cancel";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
             // Logon
             // 
+            AcceptButton = btnConfirm;
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.SystemColors.WindowFrame;
+            CancelButton = button2;
             ClientSize = new System.Drawing.Size(600, 150);
             Controls.Add(button2);
             Controls.Add(btnConfirm);

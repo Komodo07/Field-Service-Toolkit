@@ -15,7 +15,7 @@ namespace Field_Service_Toolkit
 {
     internal class SnowAPI
     {
-        private string department, location, room, roomType, assignedTo;
+        private string department, location, room, roomType, assignedTo, alias;
 
         public string Department
         {
@@ -41,7 +41,12 @@ namespace Field_Service_Toolkit
         {
             get { return assignedTo; }
             private set { assignedTo = value; }
-        }        
+        }
+        public string Alias
+        {
+            get { return alias; }
+            private set { alias = value; }
+        }
         public async Task SnowAPIClient(string hostName)
         {
             /*This method creates a HttpClient with headers and credentials that will be passed to
@@ -63,9 +68,9 @@ namespace Field_Service_Toolkit
                 JSONAttributes attributes = await DeserializeAttributes(client, hostName);
                 AssignValuestoVariables(attributes);
             }
-            catch (JsonException jsonException)
+            catch (JsonException)
             {
-                throw jsonException;
+                throw;
             }            
         }        
         static async Task<JSONAttributes> DeserializeAttributes(HttpClient client, string hostName)
@@ -93,6 +98,7 @@ namespace Field_Service_Toolkit
 
         private void AssignValuestoVariables(JSONAttributes attributes)
         {
+            Alias = attributes.result.attributes.u_aliases;
             Department = attributes.result.attributes.department.display_value;
             Location = attributes.result.attributes.location.display_value;
             Room = attributes.result.attributes.u_room;

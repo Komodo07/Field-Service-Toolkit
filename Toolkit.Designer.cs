@@ -44,6 +44,9 @@
             label2 = new System.Windows.Forms.Label();
             snowInformation = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
+            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -121,6 +124,7 @@
             // 
             // techMenuToolStripMenuItem
             // 
+            techMenuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3 });
             techMenuToolStripMenuItem.Name = "techMenuToolStripMenuItem";
             techMenuToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             techMenuToolStripMenuItem.Text = "Tech Menu";
@@ -193,8 +197,27 @@
             label4.TabIndex = 10;
             label4.Text = "SNOW Information";
             // 
-            // Form1
+            // toolStripMenuItem1
             // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new System.Drawing.Size(267, 22);
+            toolStripMenuItem1.Text = "Bitlocker: Disable / Enable Protectors";
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new System.Drawing.Size(267, 22);
+            toolStripMenuItem2.Text = "Bitlocker: Status";
+            // 
+            // toolStripMenuItem3
+            // 
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
+            toolStripMenuItem3.Size = new System.Drawing.Size(267, 22);
+            toolStripMenuItem3.Text = "Restart Workstation";
+            // 
+            // Toolkit
+            // 
+            AcceptButton = btnPing;
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoSize = true;
@@ -215,7 +238,7 @@
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            Name = "Form1";
+            Name = "Toolkit";
             Text = "FS Maintenance Toolkit";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -240,6 +263,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label snowInformation;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }
 
