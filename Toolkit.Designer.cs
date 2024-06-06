@@ -38,15 +38,15 @@
             printerOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             computerMaintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             techMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            RestartWorkstation = new System.Windows.Forms.ToolStripMenuItem();
             txtUserName = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
             btnClear = new System.Windows.Forms.Button();
             label2 = new System.Windows.Forms.Label();
             snowInformation = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
-            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -124,10 +124,29 @@
             // 
             // techMenuToolStripMenuItem
             // 
-            techMenuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3 });
+            techMenuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, RestartWorkstation });
             techMenuToolStripMenuItem.Name = "techMenuToolStripMenuItem";
             techMenuToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             techMenuToolStripMenuItem.Text = "Tech Menu";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new System.Drawing.Size(267, 22);
+            toolStripMenuItem1.Text = "Bitlocker: Disable / Enable Protectors";
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new System.Drawing.Size(267, 22);
+            toolStripMenuItem2.Text = "Bitlocker: Status";
+            // 
+            // RestartWorkstation
+            // 
+            RestartWorkstation.Name = "RestartWorkstation";
+            RestartWorkstation.Size = new System.Drawing.Size(267, 22);
+            RestartWorkstation.Text = "Restart Workstation";
+            RestartWorkstation.Click += RestartWorkstation_Click;
             // 
             // txtUserName
             // 
@@ -197,24 +216,6 @@
             label4.TabIndex = 10;
             label4.Text = "SNOW Information";
             // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(267, 22);
-            toolStripMenuItem1.Text = "Bitlocker: Disable / Enable Protectors";
-            // 
-            // toolStripMenuItem2
-            // 
-            toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new System.Drawing.Size(267, 22);
-            toolStripMenuItem2.Text = "Bitlocker: Status";
-            // 
-            // toolStripMenuItem3
-            // 
-            toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new System.Drawing.Size(267, 22);
-            toolStripMenuItem3.Text = "Restart Workstation";
-            // 
             // Toolkit
             // 
             AcceptButton = btnPing;
@@ -265,7 +266,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem RestartWorkstation;
     }
 }
 

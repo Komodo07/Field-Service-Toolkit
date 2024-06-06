@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Management;
 using System.Net.NetworkInformation;
 using System.ServiceProcess;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Field_Service_Toolkit
     {
         public Toolkit()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -81,8 +82,8 @@ namespace Field_Service_Toolkit
                     pcInformation.Text = RemoteRegistryException.Message;
                     return;
                 }
-                                
-                Host host = new Host();                
+
+                Host host = new Host();
                 host.GetPCInformation(HostName);
 
                 SnowAPI snowAPI = new SnowAPI();
@@ -90,13 +91,13 @@ namespace Field_Service_Toolkit
                 try
                 {
                     Task task = snowAPI.SnowAPIClient(HostName);
-                    await task;                    
+                    await task;
                 }
                 catch (JsonException jsonException)
                 {
                     snowInformation.Text = jsonException.Message;
                     return;
-                }                
+                }
 
                 pcInformation.Text = $"Computer Name: {host.Name}\nOperating System: {host.OS}\nManufacturer: {host.Manufacturer}\nModel: {host.Model}\nSerial Number: {host.Serial}" +
                     $"\nCPU SPeed: {host.CpuSpeed}\nBios Version: {host.BiosVersion}\nDomain: {host.Domain}\nHDD Capacity: {host.HddCapacity}GB\nHDD Space: {host.HddUsedSpace}% | Free: {host.HddFreeSpace}" +
@@ -150,7 +151,7 @@ namespace Field_Service_Toolkit
                 catch
                 {
                     throw new Exception("Unable to start Remote Registry.");
-                }                
+                }
             }
         }
 
@@ -160,6 +161,18 @@ namespace Field_Service_Toolkit
             txtUserName.Text = "";
             pcInformation.Text = "";
             snowInformation.Text = "";
+        }
+
+        private void RestartWorkstation_Click(object sender, EventArgs e)
+        {
+            using ManagementObjectSearcher searcher = new ManagementObjectSearcher($@"\\{HostName}\root\cimv2", "SELECT * FROM Win32_OperatingSystem");
+
+            foreach (ManagementObject mo in searcher.Get())
+            {
+                mo.InvokeMethod("Reboot", null);
+                MessageBox.Show($"Rebooting {HostName}");
+                mo.Dispose();
+            }
         }
     }
 }
