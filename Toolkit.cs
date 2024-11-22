@@ -167,12 +167,22 @@ namespace Field_Service_Toolkit
         {
             using ManagementObjectSearcher searcher = new ManagementObjectSearcher($@"\\{HostName}\root\cimv2", "SELECT * FROM Win32_OperatingSystem");
 
-            foreach (ManagementObject mo in searcher.Get())
+            try
             {
-                mo.InvokeMethod("Reboot", null);
-                MessageBox.Show($"Rebooting {HostName}");
-                mo.Dispose();
+                foreach (ManagementObject mo in searcher.Get())
+                {
+                    mo.InvokeMethod("Reboot", null);
+                    MessageBox.Show($"Rebooting {HostName}");
+                    mo.Dispose();
+                }
+                searcher.Dispose();
             }
+            catch
+            {
+                throw new Exception("The RPC server is unavailable");
+            }
+
+            
         }
     }
 }
