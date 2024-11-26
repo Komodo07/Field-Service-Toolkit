@@ -138,7 +138,7 @@ namespace Field_Service_Toolkit
             // Creates and runs a query to Win32_ComputerSystem on a remote PC
             // and returns and assigns the relevant PC information to class variables.
 
-            ManagementScope scope = new ManagementScope($"\\\\{hostName}\\root\\cimv2");
+            ManagementScope scope = new ManagementScope($@"\\{hostName}\root\cimv2");
             scope.Connect();
             SelectQuery query = new SelectQuery("SELECT * FROM Win32_ComputerSystem");
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
@@ -160,6 +160,7 @@ namespace Field_Service_Toolkit
                 Domain = mo["Domain"].ToString();
                 Model = mo["Model"].ToString();
                 Manufacturer = mo["Manufacturer"].ToString();
+                //LastReboot = mo["LastBootUpTime"].ToString(); (Win32_OperatingSystem class)
 
                 Int64 memory = Convert.ToInt64(mo["TotalPhysicalMemory"]);
                 memory /= Convert.ToInt64(1e9);

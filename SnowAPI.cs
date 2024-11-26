@@ -92,7 +92,7 @@ namespace Field_Service_Toolkit
             }
             catch
             {
-                throw new JsonException("Unable to get SNOW record. Please check che Operational Status dropdown in SNOW.");                
+                throw new JsonException("Unable to get SNOW record.\r\nPlease check the Operational Status dropdown in SNOW.");                
             }            
         }
 
