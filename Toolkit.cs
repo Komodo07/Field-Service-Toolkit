@@ -175,7 +175,6 @@ namespace Field_Service_Toolkit
                     MessageBox.Show($"Rebooting {HostName}");
                     mo.Dispose();
                 }
-                searcher.Dispose();
             }
             catch
             {
