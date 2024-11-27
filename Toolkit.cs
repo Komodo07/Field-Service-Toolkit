@@ -166,7 +166,7 @@ namespace Field_Service_Toolkit
         private void RestartWorkstation_Click(object sender, EventArgs e)
         {
             using ManagementObjectSearcher searcher = new ManagementObjectSearcher($@"\\{HostName}\root\cimv2", "SELECT * FROM Win32_OperatingSystem");
-
+                        
             try
             {
                 foreach (ManagementObject mo in searcher.Get())
@@ -182,6 +182,19 @@ namespace Field_Service_Toolkit
             }
 
             
+        }
+
+        private void Win32Shutdown()
+        {
+            ManagementScope scope = new ManagementScope($@"\\{HostName}\root\cimv2");
+            scope.Connect();
+
+            ManagementObject mo = new ManagementObject(scope, new ManagementPath("Win32_OperatingSystem"), null);
+
+            ManagementBaseObject inParams = mo.GetMethodParameters("Win32Shutdown");
+            ManagementBaseObject outParams = mo.InvokeMethod("Win32Shutdown", inParams, null);
+
+            Close();
         }
     }
 }
