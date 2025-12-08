@@ -107,7 +107,7 @@
             // commonSoftwareFixesToolStripMenuItem
             // 
             commonSoftwareFixesToolStripMenuItem.Name = "commonSoftwareFixesToolStripMenuItem";
-            commonSoftwareFixesToolStripMenuItem.Size = new System.Drawing.Size(148, 20);
+            commonSoftwareFixesToolStripMenuItem.Size = new System.Drawing.Size(147, 20);
             commonSoftwareFixesToolStripMenuItem.Text = "Common Software Fixes";
             // 
             // printerOptionsToolStripMenuItem
@@ -126,7 +126,7 @@
             // 
             techMenuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, RestartWorkstation });
             techMenuToolStripMenuItem.Name = "techMenuToolStripMenuItem";
-            techMenuToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            techMenuToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             techMenuToolStripMenuItem.Text = "Tech Menu";
             // 
             // toolStripMenuItem1
@@ -240,7 +240,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "Toolkit";
-            Text = "FS Maintenance Toolkit";
+            Text = "FS Maintenance Toolkit - Main Page";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

@@ -28,10 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "SCCM";
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SCCM));
+            SuspendLayout();
+            // 
+            // SCCM
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            ClientSize = new System.Drawing.Size(1341, 913);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Name = "SCCM";
+            Text = "FS Maintenance Toolkit - SCCM";
+            ResumeLayout(false);
         }
 
         #endregion
